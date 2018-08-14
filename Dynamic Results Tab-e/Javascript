@@ -1,0 +1,174 @@
+var assignmentNumber = 5;
+var table = document.getElementById("myTable");
+var selectedRow = -1;
+var selectedCol = -1;
+
+
+function myFunction() {
+  var table = document.getElementById("myTable");
+  var rows = table.rows;
+
+  for (var i = 1; i < rows.length; i++) {
+    var cells = rows[i].cells;
+    var sum = 0;
+    var numbers = 0;
+    for (var x = 2; x < (cells.length - 1); x++) {
+      var cell = cells[x];
+      var addme = parseInt(cell.innerHTML);
+      if (!isNaN(addme)) {
+        sum += addme;
+        numbers++;
+      }
+    }
+    var average = sum / numbers;
+    rows[i].cells[cells.length - 1].innerHTML = "<td>" + Math.round(average) + "</td>";
+  }
+}
+
+document.getElementById('myFunction').onclick = myFunction;
+
+function addrow() {
+  var table = document.getElementById("myTable");
+  var celllength = table.rows[2].cells.length;
+  var row = table.insertRow(2);
+  for (var i = 0; i < celllength; i++) {
+    var cell1 = row.insertCell(i);
+    cell1.contentEditable = "true";
+
+  }
+}
+document.getElementById('addrow').onclick = addrow;
+
+function addcol() {
+  assignmentNumber++;
+
+  var table = document.getElementById("myTable");
+  var len = table.rows[0].cells.length - 1;
+  for (var i = 0; i < table.rows.length; i++) {
+    var x = table.rows[i].insertCell(len);
+
+    if (i == 0) {
+      x.innerHTML = "Assignment " + assignmentNumber;
+
+    } else {
+      x.contentEditable = "true";
+    }
+
+  }
+
+}
+document.getElementById('addcol').onclick = addcol;
+
+
+// Function to save cookie
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  var expires = "expires=" + d.toGMTString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+// Function to get a cookie
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+//Function to save the data in the table
+function save() {
+  var x = table.innerHTML.replace(/\n/g, "");
+  setCookie("mytabledata", x, 3);
+  alert("Saved");
+
+}
+document.getElementById('save').onclick = save;
+
+//Function to load the data in the table
+function load() {
+  table.innerHTML = getCookie("mytabledata");
+
+}
+document.getElementById('load').onclick = load;
+
+
+function highlight() {
+  var rows = table.getElementsByTagName("tr");
+  var table = document.getElementById("myTable");
+  for (i = 1; i < rows.length; i++) {
+    var row = table.rows[i];
+    row.onclick = function () {
+      this.style.backgroundColor = "yellow"
+
+    }
+  }
+}
+
+function deleteRow() {
+  undoHTMLtable = table.innerHTML;
+  if (selectedRow != -1) {
+    table.deleteRow(selectedRow);
+  }
+}
+document.getElementById('deleteRow').onclick = deleteRow;
+
+function deletecol() {
+  undoHTMLtable = table.innerHTML;
+
+  for (i = 0; i < table.rows.length; i++) {
+    var row = table.rows[i]
+    row.cells[selectedCol].remove();
+  }
+}
+document.getElementById('deletecol').onclick = deletecol;
+
+
+function higlight() {
+
+  var rows = table.getElementsByTagName("tr");
+  for (i = 1; i < rows.length; i++) {
+    row = table.rows[i];
+    row.onclick = function() {
+
+      deselectAllRows();
+
+      if (selectedRow != this.rowIndex) {
+        selectedRow = this.rowIndex;
+
+        this.style = "background-color:yellow";
+      } else {
+        selectedRow = -1;
+           }
+      };
+  }
+
+  var cols = table.getElementsByTagName("th");
+  for (i = 0; i < cols.length; i++) {
+    col = cols[i];
+
+    col.onclick = function() {
+
+      if (selectedCol != this.cellIndex) {
+        selectCol(this.cellIndex);
+        selectedCol = this.cellIndex;
+      } else {
+        deselectAllRows();
+
+        selectedCol = -1;
+      }
+      
+    };
+    
+  }
+
+}
