@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!This is an example taken from https://www.w3schools.com/angular/angular_tables.asp>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <title>Customer</title>
+    <style>
+        table, th , td {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        table tr:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="customersCtrl">
+    <table>
+        <tr ng-repeat="x in names">
+            <td>{{ x.name }}</td>
+            <td>{{ x.country }}</td>
+        </tr>
+    </table><br>
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('customersCtrl', function($scope, $http) {
+        $http.get("customers.php")
+            .then(function (response) {$scope.names = response.data.records;});
+    });
+</script>
+</body>
+</html>
