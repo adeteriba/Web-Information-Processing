@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Yoga Quiz</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="grid">
+        <div id="quiz">
+            <h1>Yoga Quiz</h1>
+			
+			<h3>Please Enter your name<h3>
+			<input id="title" type="text">
+			<input type="submit" value="Enter" onclick="insert()" onclick = "checkCookie()" />
+			<div id="display"></div>
+			<div id=checkCookie()></div>
+
+    
+    <script type="text/javascript">
+      var titles = [];
+      var titleInput = document.getElementById("title");
+      var messageBox = document.getElementById("display");
+
+
+      function insert() {
+        titles.push(titleInput.value);
+        clearAndShow();
+      }
+
+      function clearAndShow() {
+        titleInput.value = "";
+        messageBox.innerHTML = "";
+        messageBox.innerHTML += "Wecome " + titles.join(", ") + " to the yoga quiz";
+      }
+	  
+	  function setCookie(cname, cvalue, exdays) {
+		var d = new Date();
+		d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+		var expires = "expires=" + d.toGMTString();
+		document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+	}
+	
+	function getCookie(cname) {
+			var name = cname + "=";
+			var decodedCookie = decodeURIComponent(document.cookie);
+			var ca = decodedCookie.split(';');
+			for (var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return "";
+		}
+		
+	function checkCookie(){
+		var x = clearAndShow("");
+		setCookie("username", x, 365);
+	}	
+
+
+    </script>
+
+            <h3 id="question"></h3>
+			<p id="pics"></p>
+			
+			<div id="images">
+
+    <font size="6">1.</font><img src="bridge-head.jpg" alt="" width="250" height="310" />
+    <font size="6">2.</font><img src="Anjaneyasana.jpg" alt="" width="250" height="310" />
+    <font size="6">3.</font><img src="chair.jpg" alt="" width="250" height="310"/>
+	<font size="6">4.</font><img src="Chaturanga-Dandasana.jpg" alt="" width="250" height="310"/>
+	<font size="6">5.</font><img src="camel.jpg" alt="" width="250" height="310"/>
+	<br>
+	<font size="6">6.</font><img src="Half-Moon-Pose.jpg" alt="" width="250" height="310"/>
+	<font size="6">7.</font><img src="headstand-side.jpg" alt="" width="250" height="310"/>
+	<font size="6">8.</font><img src="Bhuja-Vrischikasana.jpg" alt="" width="250" height="310"/>
+	<font size="6">9.</font><img src="Yoganidrasana.jpg" alt="" width="250" height="310"/>
+	<font size="6">10.</font><img src="Akarna-Dhanurasana.jpg" alt="" width="250" height="310"/>
+ 
+</div>
+			
+			
+			
+
+            <div class="buttons">
+                <button id="btn0"><span id="choice0"></span></button>
+                <button id="btn1"><span id="choice1"></span></button>
+                <button id="btn2"><span id="choice2"></span></button>
+                <button id="btn3"><span id="choice3"></span></button>
+            </div>
+
+            <hr style="margin-top: 50px">
+            <footer>
+                <p id="progress">Question x of y</p>
+            </footer>
+        </div>
+    </div>
+
+<script src="Score.js"></script>
+<script src="Question.js"></script>
+<script src="Quiz.js"></script>
+</body>
+</html>
