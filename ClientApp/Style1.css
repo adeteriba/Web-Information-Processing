@@ -1,0 +1,23 @@
+
+body{
+    font-family: "Courier New", Courier, monospace;
+	background-color: blue;
+}
+
+div{
+    margin:auto;
+}
+
+h1,h2,h3 {
+    text-align: center;
+	font-family: "Courier New", Courier, monospace
+}
+
+form{
+    background-color: purple;
+}
+
+form input[type=submit] {
+    background-color: lightblue;
+}
+
